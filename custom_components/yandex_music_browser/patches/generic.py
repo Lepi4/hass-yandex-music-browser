@@ -12,10 +12,8 @@ from homeassistant.components.http import HomeAssistantView, KEY_HASS
 from homeassistant.components.media_player import (
     BrowseError,
     MediaPlayerEntity,
-    SUPPORT_BROWSE_MEDIA,
-    SUPPORT_PLAY_MEDIA,
+    MediaPlayerEntityFeature,
 )
-from homeassistant.components.media_player.const import MEDIA_TYPE_MUSIC, MEDIA_TYPE_PLAYLIST
 from homeassistant.helpers.typing import HomeAssistantType
 from yandex_music import Artist, DownloadInfo, Playlist, Track, YandexMusicObject
 
@@ -33,6 +31,10 @@ from custom_components.yandex_music_browser.media_browser import (
 from custom_components.yandex_music_browser.patches._base import _patch_root_async_browse_media
 
 _LOGGER = logging.getLogger(__name__)
+
+# Константы для типов медиа
+MEDIA_TYPE_MUSIC = "music"
+MEDIA_TYPE_PLAYLIST = "playlist"
 
 
 async def _patch_generic_async_play_media(
@@ -167,8 +169,8 @@ async def _patch_generic_async_browse_media(
 def _patch_generic_get_attribute(self, attr: str):
     if attr == "supported_features":
         supported_features = object.__getattribute__(self, attr)
-        if supported_features is not None and supported_features & SUPPORT_PLAY_MEDIA:
-            return supported_features | SUPPORT_BROWSE_MEDIA
+        if supported_features is not None and supported_features & MediaPlayerEntityFeature.PLAY_MEDIA:
+            return supported_features | MediaPlayerEntityFeature.BROWSE_MEDIA
         return supported_features
 
     elif attr == "async_play_media":
