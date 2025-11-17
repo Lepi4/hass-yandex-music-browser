@@ -5,6 +5,6 @@
   "render_readme": true,
   "domains": [],
   "country": "ru",
-  "homeassistant": "2021.4.6",
+  "homeassistant": "2021.4.7",
   "iot_class": "Cloud Polling"
 }
