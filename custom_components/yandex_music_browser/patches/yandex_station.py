@@ -6,7 +6,7 @@ from homeassistant.components.media_player import (
     MediaPlayerEntityFeature
 )
 from homeassistant.core import callback
-from homeassistant.helpers.typing import HomeAssistantType
+from homeassistant.core import HomeAssistant
 
 from custom_components.yandex_music_browser.const import DATA_BROWSER, MEDIA_TYPE_RADIO
 from custom_components.yandex_music_browser.default import (
@@ -175,7 +175,7 @@ async def _async_authenticate_using_yandex_station(entity: "YandexStation") -> s
 #################################################################################
 
 
-def install(hass: HomeAssistantType):
+def install(hass: HomeAssistant):
     try:
         from custom_components.yandex_station.media_player import YandexStation
     except ImportError:
@@ -189,7 +189,7 @@ def install(hass: HomeAssistantType):
         _get_yandex_entities()
 
 
-def uninstall(hass: HomeAssistantType):
+def uninstall(hass: HomeAssistant):
     try:
         from custom_components.yandex_station.media_player import YandexStation
     except ImportError:
@@ -200,7 +200,7 @@ def uninstall(hass: HomeAssistantType):
             YandexStation.__getattribute__ = YandexStation.orig__getattribute__
 
 
-async def async_authenticate(on: Union[HomeAssistantType, "MediaPlayerEntity"]):
+async def async_authenticate(on: Union[HomeAssistant, "MediaPlayerEntity"]):
     try:
         from custom_components.yandex_station.media_player import YandexStation
     except ImportError:
