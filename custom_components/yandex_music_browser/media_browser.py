@@ -1293,7 +1293,17 @@ def refresh_data_processor(browser: "YandexMusicBrowser", media_id: str, fetch_c
     _LOGGER.info("Clearing Yandex Music Browser cache...")
     browser.clear_cache()
     _LOGGER.info("Cache cleared successfully")
-    return []
+    
+    # Return a simple BrowseMedia object that redirects to root
+    return YandexBrowseMedia(
+        title="Кэш очищен",
+        media_class=MediaClass.DIRECTORY,
+        media_content_id="library",
+        media_content_type=ROOT_MEDIA_CONTENT_TYPE,
+        can_play=False,
+        can_expand=True,
+        children_media_class=MediaClass.DIRECTORY,
+    )
 
 
 @register_type_browse_processor()
