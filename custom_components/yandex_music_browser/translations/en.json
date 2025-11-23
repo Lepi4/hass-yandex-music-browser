@@ -46,6 +46,9 @@
     "user_likes": {
       "title": "Preferences"
     },
+    "refresh_data": {
+      "title": "🔄 Refresh Data"
+    },
     "popular_artists": {
       "title": "Top artists"
     },

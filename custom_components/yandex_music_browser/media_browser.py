@@ -1288,6 +1288,15 @@ def user_likes_processor(browser: "YandexMusicBrowser", media_id: str) -> List[T
 
 
 @register_type_browse_processor()
+def refresh_data_processor(browser: "YandexMusicBrowser", media_id: str):
+    """Clear cache and refresh data"""
+    _LOGGER.info("Clearing Yandex Music Browser cache...")
+    browser._cache.clear()
+    _LOGGER.info("Cache cleared successfully")
+    return []
+
+
+@register_type_browse_processor()
 @adapt_media_id_to_user_id
 @adapt_directory_to_browse_processor(children_media_class=MediaClass.PLAYLIST)
 def user_playlists_processor(
@@ -1766,6 +1775,7 @@ def genre_type_processor(
 DEFAULT_MENU_OPTIONS = BrowseTree.from_map(
     {
         "items": [
+            "refresh_data",
             "user_playlists",
             "personal_mixes",
             "user_likes",
