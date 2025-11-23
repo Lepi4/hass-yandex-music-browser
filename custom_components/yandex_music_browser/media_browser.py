@@ -1291,7 +1291,7 @@ def user_likes_processor(browser: "YandexMusicBrowser", media_id: str) -> List[T
 def refresh_data_processor(browser: "YandexMusicBrowser", media_id: str, fetch_children: bool = True):
     """Clear cache and refresh data"""
     _LOGGER.info("Clearing Yandex Music Browser cache...")
-    browser._cache.clear()
+    browser.clear_cache()
     _LOGGER.info("Cache cleared successfully")
     return []
 
