@@ -1297,10 +1297,11 @@ def refresh_data_processor(browser: "YandexMusicBrowser", media_id: str):
     browser.clear_cache()
     _LOGGER.info("Cache cleared successfully")
     # Return main menu items to reload the menu
+    menu_items = DEFAULT_MENU_OPTIONS[0].get(CONF_ITEMS, [])
     return [
-        (item, translate("refresh_data", item, browser.config_entry))
-        for item in DEFAULT_MENU_OPTIONS.children.keys()
-        if item != "refresh_data"  # Don't show refresh button again
+        (media_type, media_id_val, translate("refresh_data", media_type, browser.config_entry))
+        for media_type, media_id_val in menu_items
+        if media_type != "refresh_data"  # Don't show refresh button again
     ]
 
 
