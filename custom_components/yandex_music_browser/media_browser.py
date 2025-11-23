@@ -1288,22 +1288,16 @@ def user_likes_processor(browser: "YandexMusicBrowser", media_id: str) -> List[T
 
 
 @register_type_browse_processor()
-def refresh_data_processor(browser: "YandexMusicBrowser", media_id: str, fetch_children: bool = True):
+@adapt_directory_to_browse_processor(
+    children_media_class=MediaClass.DIRECTORY,
+)
+def refresh_data_processor(browser: "YandexMusicBrowser", media_id: str):
     """Clear cache and refresh data"""
     _LOGGER.info("Clearing Yandex Music Browser cache...")
     browser.clear_cache()
     _LOGGER.info("Cache cleared successfully")
-    
-    # Return a simple BrowseMedia object that redirects to root
-    return YandexBrowseMedia(
-        title="Кэш очищен",
-        media_class=MediaClass.DIRECTORY,
-        media_content_id="library",
-        media_content_type=ROOT_MEDIA_CONTENT_TYPE,
-        can_play=False,
-        can_expand=True,
-        children_media_class=MediaClass.DIRECTORY,
-    )
+    # Return empty list - will show empty directory
+    return []
 
 
 @register_type_browse_processor()
