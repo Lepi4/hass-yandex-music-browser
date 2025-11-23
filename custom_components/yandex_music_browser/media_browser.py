@@ -1296,8 +1296,12 @@ def refresh_data_processor(browser: "YandexMusicBrowser", media_id: str):
     _LOGGER.info("Clearing Yandex Music Browser cache...")
     browser.clear_cache()
     _LOGGER.info("Cache cleared successfully")
-    # Return empty list - will show empty directory
-    return []
+    # Return main menu items to reload the menu
+    return [
+        (item, translate("refresh_data", item, browser.config_entry))
+        for item in DEFAULT_MENU_OPTIONS.children.keys()
+        if item != "refresh_data"  # Don't show refresh button again
+    ]
 
 
 @register_type_browse_processor()
